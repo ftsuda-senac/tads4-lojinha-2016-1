@@ -30,6 +30,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
@@ -41,7 +42,10 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class ProdutoBean implements Serializable {
 
-
+    // @ManagedProperty permite associar um parametro passado
+    // na requisição
+    // Só funciona se bean usar @ManagedBean
+    @ManagedProperty(value = "#{param.id}")
     private Long idProduto;
 
     public ProdutoBean() {
@@ -53,17 +57,28 @@ public class ProdutoBean implements Serializable {
     }
 
     public Produto getProduto() {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        return obter(getIdParam(fc));
+        //FacesContext fc = FacesContext.getCurrentInstance();
+        //return obter(getIdParam(fc));
+        return obter(getIdProduto());
     }
 
-    public Produto obter(long idProduto) {
+    private Produto obter(long idProduto) {
         ProdutoService service = new ProdutoServiceFakeImpl();
         return service.obter(idProduto);
     }
 
-    private Long getIdParam(FacesContext fc) {
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        return Long.parseLong(params.get("id"));
+//    private Long getIdParam(FacesContext fc) {
+//        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+//        return Long.parseLong(params.get("id"));
+//    }
+
+    public Long getIdProduto() {
+        return idProduto;
     }
+
+    public void setIdProduto(Long idProduto) {
+        this.idProduto = idProduto;
+    }
+    
+    
 }
