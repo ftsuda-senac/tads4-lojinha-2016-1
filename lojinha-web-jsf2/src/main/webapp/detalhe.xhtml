@@ -1,14 +1,73 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+  <h:head>
+    <title>The Candy Shop</title>
+    <h:outputStylesheet name="css/bootstrap.min.css" />
+    <h:outputScript name="js/bootstrap.min.js" />
+  </h:head>
+  <h:body>
+    <div id="carousel-container" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-container" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-container" data-slide-to="1"></li>
+        <li data-target="#carousel-container" data-slide-to="2"></li>
+      </ol>
+
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <h:graphicImage name="img/bolo.jpg" alt="Imagem 1" />
+          <div class="carousel-caption">
+            Imagem 1
+          </div>
+        </div>
+        <div class="item">
+          <h:graphicImage name="img/bolo2.jpg" alt="Imagem 2" />
+          <div class="carousel-caption">
+            Imagem 2
+          </div>
+        </div>
+        <div class="item">
+          <h:graphicImage name="img/bolo3.jpg" alt="Imagem 3" />
+          <div class="carousel-caption">
+            Imagem 3
+          </div>
+        </div>
+      </div>
+      <!-- Controls -->
+      <a class="left carousel-control" href="#carousel-container" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#carousel-container" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
         <h1>
-            <h:outputText value="#{produtoBean.produto.nome}" />
+          <h:outputText value="#{produtoBean.produto.nome}" />
         </h1>
-    </h:body>
+        <p>
+          <h:outputText value="#{produtoBean.produto.descricao}" />
+        </p>
+        <h3>
+          <h:outputText value="#{produtoBean.produto.preco}">
+            <f:convertNumber type="currency" locale="pt-BR" />
+          </h:outputText>
+        </h3>
+        <p>
+          <h:outputLink value="lista.xhtml?faces-redirect=true" class="btn btn-default" pt:role="button">
+            Voltar
+          </h:outputLink>
+        </p>
+      </div>
+    </div>
+  </h:body>
 </html>
 
