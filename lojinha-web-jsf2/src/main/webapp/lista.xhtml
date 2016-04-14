@@ -33,11 +33,16 @@
           <!--
           <div class="container-fluid">
           -->
+          <ui:fragment rendered="#{flash.mensagem != null}">
+            <div class="alert alert-#{flash.mensagem.tipo}" role="alert">
+              <p>#{flash.mensagem.msg}</p>
+            </div>
+          </ui:fragment>
           <div class="row">
             <ui:repeat value="#{produtoBean.lista}" var="prod">
               <div class="col-sm-6">
                 <div class="thumbnail">
-                  <h:graphicImage name="img/bolo.jpg" alt="Imagem do bolo" class="img-responsive" />
+                  <h:graphicImage name="img/bolo.jpg" alt="Imagem do bolo" styleClass="img-responsive" />
                   <div class="caption">
                     <h2><h:outputText value="#{prod.nome}" /></h2>
                     <p><h:outputText value="#{prod.descricao}" /></p>
@@ -47,7 +52,7 @@
                       </h:outputText>
                     </h3>
                     <p>
-                      <h:outputLink value="detalhe.xhtml" class="btn btn-default" pt:role="button">
+                      <h:outputLink value="detalhe.xhtml" styleClass="btn btn-default" pt:role="button">
                         <f:param name="id" value="#{prod.id}" />
                         Detalhes
                       </h:outputLink>
@@ -55,18 +60,14 @@
                       <a class="btn btn-default" href="#" role="button">Link</a>
                       -->
                     </p>
-
-
                   </div>
                 </div>
-
               </div>
             </ui:repeat>
           </div>
           <!--
           </div>
           -->
-
           <!-- AREA DIFERENTE - FIM -->
         </div>
       </div>

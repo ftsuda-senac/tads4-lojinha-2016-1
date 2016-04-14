@@ -37,11 +37,11 @@ public interface ProdutoService {
 
   public List<Produto> listarPorCategoria(Categoria categoria, int offset, int quantidade);
 
-  public Produto obter(Long idProduto);
+  public Produto obter(long idProduto);
 
   public void incluir(Produto p);
 
   public void alterar(Produto p);
 
-  public void remover(Long idProduto);
+  public void remover(long idProduto);
 }

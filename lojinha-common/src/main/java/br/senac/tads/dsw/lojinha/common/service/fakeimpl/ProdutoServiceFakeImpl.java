@@ -59,31 +59,31 @@ public class ProdutoServiceFakeImpl implements ProdutoService {
             DESCRICAO_PADRAO,
             new BigDecimal(100), new Date(),
             Arrays.asList(new ImagemProduto(1L, "Bla bla bla", "imagem01a.jpg"), new ImagemProduto(2L, "Xpto Xpto", "imagem01b.jpg"), new ImagemProduto(3L, "Chola mais", "imagem01c.jpg")),
-            Arrays.asList(categorias.obter(1L), categorias.obter(3L)));
+            Arrays.asList(categorias.obter(1), categorias.obter(3)));
     MAPA_PRODUTOS.put(produto.getId(), produto);
     produto = new Produto(2L, "Torta de morango",
             DESCRICAO_PADRAO,
             new BigDecimal(90), new Date(),
             Arrays.asList(new ImagemProduto(4L, "Bla bla bla", "imagem02a.jpg"), new ImagemProduto(5L, "Xpto Xpto", "imagem02b.jpg")),
-            Arrays.asList(categorias.obter(1L), categorias.obter(3L)));
+            Arrays.asList(categorias.obter(1), categorias.obter(3)));
     MAPA_PRODUTOS.put(produto.getId(), produto);
     produto = new Produto(3L, "Sonho de valsa",
             DESCRICAO_PADRAO,
             new BigDecimal(110), new Date(),
             Arrays.asList(new ImagemProduto(6L, "Bla bla bla", "imagem03a.jpg")),
-            Arrays.asList(categorias.obter(1L), categorias.obter(3L), categorias.obter(6L)));
+            Arrays.asList(categorias.obter(1), categorias.obter(3), categorias.obter(6)));
     MAPA_PRODUTOS.put(produto.getId(), produto);
     produto = new Produto(4L, "Morango com leite condensado",
             DESCRICAO_PADRAO,
             new BigDecimal(105), new Date(),
             Arrays.asList(new ImagemProduto(7L, "Bla bla bla", "imagem04a.jpg"), new ImagemProduto(8L, "Xpto Xpto", "imagem04b.jpg")),
-            Arrays.asList(categorias.obter(1L), categorias.obter(4L)));
+            Arrays.asList(categorias.obter(1), categorias.obter(4)));
     MAPA_PRODUTOS.put(produto.getId(), produto);
     produto = new Produto(5L, "Abacaxi com coco",
             DESCRICAO_PADRAO,
             new BigDecimal(85), new Date(),
             Arrays.asList(new ImagemProduto(9L, "Bla bla bla", "imagem04a.jpg"), new ImagemProduto(10L, "Xpto Xpto", "imagem04b.jpg")),
-            Arrays.asList(categorias.obter(1L), categorias.obter(5L), categorias.obter(7L), categorias.obter(8L)));
+            Arrays.asList(categorias.obter(1), categorias.obter(5), categorias.obter(7), categorias.obter(8)));
     MAPA_PRODUTOS.put(produto.getId(), produto);
   }
 
@@ -105,13 +105,13 @@ public class ProdutoServiceFakeImpl implements ProdutoService {
   }
 
   @Override
-  public Produto obter(Long idProduto) {
+  public Produto obter(long idProduto) {
     return MAPA_PRODUTOS.get(idProduto);
   }
 
   @Override
   public void incluir(Produto p) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    // new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
   @Override
@@ -120,7 +120,7 @@ public class ProdutoServiceFakeImpl implements ProdutoService {
   }
 
   @Override
-  public void remover(Long idProduto) {
+  public void remover(long idProduto) {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 

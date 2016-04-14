@@ -21,19 +21,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package br.senac.tads.dsw.lojinha.common.service;
+package br.senac.tads.dsw.lojinha.web.jsf2.util;
 
-import br.senac.tads.dsw.lojinha.common.entity.Categoria;
-import java.util.List;
+import java.io.Serializable;
 
 /**
  *
  * @author Fernando
  */
-public interface CategoriaService {
-  
-  public List<Categoria> listar();
-  
-  public Categoria obter(int id);
-  
+public class Mensagem implements Serializable {
+
+  private String msg;
+  private String tipo;
+
+  public Mensagem() {
+
+  }
+
+  public Mensagem(String msg, String tipo) {
+    this.msg = msg;
+    this.tipo = tipo;
+  }
+
+  public String getMsg() {
+    return msg;
+  }
+
+  public void setMsg(String msg) {
+    this.msg = msg;
+  }
+
+  public String getTipo() {
+    return tipo;
+  }
+
+  public void setTipo(String tipo) {
+    this.tipo = tipo;
+  }
+
 }

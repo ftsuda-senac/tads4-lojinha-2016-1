@@ -25,6 +25,7 @@ package br.senac.tads.dsw.lojinha.common.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -74,6 +75,28 @@ public class Categoria implements Serializable {
   @Override
   public String toString() {
     return "Categoria{" + "id=" + id + ", nome=" + nome + '}';
+  }
+
+  @Override
+  public int hashCode() {
+    int hash = 3;
+    hash = 47 * hash + Objects.hashCode(this.id);
+    return hash;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    final Categoria other = (Categoria) obj;
+    if (!Objects.equals(this.id, other.id)) {
+      return false;
+    }
+    return true;
   }
 
 }
