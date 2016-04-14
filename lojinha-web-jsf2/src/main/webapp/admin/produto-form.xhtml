@@ -6,7 +6,7 @@
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
   <h:head>
-    <title>Facelet Title</title>
+    <title>The Candy Shop</title>
     <h:outputStylesheet name="css/bootstrap.min.css" />
     <h:outputScript name="js/bootstrap.min.js" />
   </h:head>
@@ -36,6 +36,7 @@
           </div>
 
           <div>
+            <h:outputLabel value="Categorias" />
             <!-- http://stackoverflow.com/questions/10361440/im-getting-value-is-not-a-valid-option-for-selectmanycheckbox -->
             <h:selectManyCheckbox value="#{produtoNovoBean.idsCategorias}" label="Categorias" id="chk-categorias" 
                                   converter="javax.faces.Integer">

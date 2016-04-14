@@ -18,7 +18,7 @@
         </div>
       </header>
       <div class="row">
-        <nav class="col-md-4 hidden-sm hidden-xs">
+        <nav class="col-md-2 hidden-sm hidden-xs">
           <h3>Categorias</h3>
           <ul class="list-group">
             <ui:repeat value="#{categoriaBean.lista}" var="cat">
@@ -28,7 +28,7 @@
             </ui:repeat>
           </ul>
         </nav>
-        <div class="col-md-8 col-sm-12">
+        <div class="col-md-10 col-sm-12">
           <!-- AREA DIFERENTE - INICIO -->
           <!--
           <div class="container-fluid">
@@ -51,15 +51,19 @@
                         <f:convertNumber type="currency" locale="pt-BR" />
                       </h:outputText>
                     </h3>
-                    <p>
-                      <h:outputLink value="detalhe.xhtml" styleClass="btn btn-default" pt:role="button">
-                        <f:param name="id" value="#{prod.id}" />
-                        Detalhes
-                      </h:outputLink>
-                      <!--
-                      <a class="btn btn-default" href="#" role="button">Link</a>
-                      -->
-                    </p>
+                    <div class="row">
+                      <div class="col-sm-8">
+                        <h:form prependId="false">
+                          <h:commandButton action="#{compraBean.adicionarProduto(prod.id, 1)}" styleClass="btn btn-success btn-lg btn-block" pt:role="button" value="Comprar" />
+                        </h:form>
+                      </div>
+                      <div class="col-sm-4">
+                        <h:outputLink value="detalhe.xhtml" styleClass="btn btn-default btn-block" pt:role="button">
+                          <f:param name="id" value="#{prod.id}" />
+                          Ver detalhes
+                        </h:outputLink>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -61,11 +61,22 @@
             <f:convertNumber type="currency" locale="pt-BR" />
           </h:outputText>
         </h3>
-        <p>
-          <h:outputLink value="lista.xhtml?faces-redirect=true" styleClass="btn btn-default" pt:role="button">
-            Voltar
-          </h:outputLink>
-        </p>
+        
+        <div class="row">
+          <div class="col-xs-8">
+            <h:form prependId="false">
+              <h:commandButton action="#{compraBean.adicionarProduto()}" styleClass="btn btn-success btn-lg btn-block" pt:role="button" value="Comprar">
+                <f:param name="idProduto" value="#{prod.id}" />
+                <f:param name="quantidade" value="1" />
+              </h:commandButton>
+            </h:form>
+          </div>
+          <div class="col-xs-4">
+            <h:outputLink value="lista.xhtml?faces-redirect=true" styleClass="btn btn-default btn-block" pt:role="button">
+              Voltar
+            </h:outputLink>
+          </div>
+        </div>
       </div>
     </div>
   </h:body>

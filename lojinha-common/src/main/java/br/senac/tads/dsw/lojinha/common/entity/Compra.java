@@ -34,8 +34,10 @@ import java.util.List;
 public class Compra implements Serializable {
 
   private Long id;
+  
+  private Date dtCriacao;
 
-  private Date dataCompra;
+  private Date dtCompra;
 
   private Cliente usuario;
 
@@ -45,9 +47,10 @@ public class Compra implements Serializable {
 
   }
 
-  public Compra(Long id, Date dataCompra, Cliente usuario) {
+  public Compra(Long id, Date dtCompra, Cliente usuario) {
     this.id = id;
-    this.dataCompra = dataCompra;
+    this.dtCriacao = new Date();
+    this.dtCompra = dtCompra;
     this.usuario = usuario;
   }
 
@@ -59,12 +62,12 @@ public class Compra implements Serializable {
     this.id = id;
   }
 
-  public Date getDataCompra() {
-    return dataCompra;
+  public Date getDtCompra() {
+    return dtCompra;
   }
 
   public void setDataCompra(Date dataCompra) {
-    this.dataCompra = dataCompra;
+    this.dtCompra = dataCompra;
   }
 
   public Cliente getUsuario() {
@@ -85,7 +88,7 @@ public class Compra implements Serializable {
 
   @Override
   public String toString() {
-    return "Compra{" + "id=" + id + ", dataCompra=" + dataCompra + ", usuario=" + usuario + ", itensCompra=" + itensCompra + '}';
+    return "Compra{" + "id=" + id + ", dtCompra=" + dtCompra + ", usuario=" + usuario + ", itensCompra=" + itensCompra + '}';
   }
 
 }
