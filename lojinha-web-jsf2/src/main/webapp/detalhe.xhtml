@@ -7,6 +7,7 @@
   <h:head>
     <title>The Candy Shop</title>
     <h:outputStylesheet name="css/bootstrap.min.css" />
+    <h:outputScript name="js/jquery-2.1.4.min.js" />
     <h:outputScript name="js/bootstrap.min.js" />
   </h:head>
   <h:body>
@@ -65,10 +66,7 @@
         <div class="row">
           <div class="col-xs-8">
             <h:form prependId="false">
-              <h:commandButton action="#{compraBean.adicionarProduto()}" styleClass="btn btn-success btn-lg btn-block" pt:role="button" value="Comprar">
-                <f:param name="idProduto" value="#{prod.id}" />
-                <f:param name="quantidade" value="1" />
-              </h:commandButton>
+              <h:commandButton action="#{compraBean.adicionarProduto(produtoBean.produto.id, 1)}" styleClass="btn btn-success btn-lg btn-block" pt:role="button" value="Comprar" />
             </h:form>
           </div>
           <div class="col-xs-4">
