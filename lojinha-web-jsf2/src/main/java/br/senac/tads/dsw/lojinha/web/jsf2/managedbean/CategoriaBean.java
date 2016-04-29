@@ -26,6 +26,7 @@ package br.senac.tads.dsw.lojinha.web.jsf2.managedbean;
 import br.senac.tads.dsw.lojinha.common.entity.Categoria;
 import br.senac.tads.dsw.lojinha.common.service.CategoriaService;
 import br.senac.tads.dsw.lojinha.common.service.fakeimpl.CategoriaServiceFakeImpl;
+import br.senac.tads.dsw.lojinha.common.service.jpaimpl.CategoriaServiceJPAImpl;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ApplicationScoped;
@@ -43,7 +44,7 @@ public class CategoriaBean implements Serializable {
   }
 
   public List<Categoria> getLista() {
-    CategoriaService service = new CategoriaServiceFakeImpl();
+    CategoriaService service = new CategoriaServiceJPAImpl();
     return service.listar();
   }
 }

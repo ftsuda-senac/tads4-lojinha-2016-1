@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <h:head>
+    <title>Facelet Title</title>
+    <h:outputStylesheet name="css/bootstrap.min.css" />
+    <h:outputScript name="js/bootstrap.min.js" />
+  </h:head>
+  <h:body>
+    <div class="row">
+      <div class="col-sm-offset-2 col-sm-8">
+        <table class="table table-responsive table-striped">
+          <tr>
+            <th>Nome do produto</th>
+            <th>Data de inclusão</th>
+            <th>Quantidade</th>
+            <th class="text-right">Valor unitário</th>
+            <th class="text-right">Subtotal</th>
+          </tr>
+          <ui:repeat value="#{compraBean.itens}" var="item">
+            <tr>
+              <td><h:outputText value="#{item.produto.nome}" /></td>
+              <td><h:outputText value="#{item.dtInclusao}">
+                  <f:convertDateTime locale="pt-BR" 
+                                     pattern="dd/MM/yyyy hh:mm:ss" />
+                </h:outputText></td>
+              <td><h:outputText value="#{item.quantidade}" /></td>
+              <td><h:outputText value="#{item.produto.preco}">
+                  <f:convertNumber type="currency" locale="pt-BR" />
+                </h:outputText></td>
+              <td><h:outputText value="#{item.preco}">
+                  <f:convertNumber type="currency" locale="pt-BR" />
+                </h:outputText></td>
+            </tr>
+          </ui:repeat>
+          <tr>
+            <td colspan="5" class="text-right">
+              <h4><h:outputText value="#{compraBean.valorTotal}">
+                <f:convertNumber type="currency" locale="pt-BR" />
+                </h:outputText></h4>
+            </td>
+          </tr>
+          
+        </table>
+      </div>
+    </div>
+  </h:body>
+</html>
+

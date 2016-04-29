@@ -10,6 +10,14 @@
     <h:outputStylesheet name="css/bootstrap.min.css" />
     <h:outputScript name="js/jquery-2.1.4.min.js" />
     <h:outputScript name="js/bootstrap.min.js" />
+    <script>
+      function funcaoAjax() {
+        $.get("../testeajax.xhtml", function(data) {
+          $("#outajax").html(data);
+        });
+        return false;
+      }
+    </script>
   </h:head>
   <h:body>
     <ui:fragment rendered="#{flash.mensagem != null}">
@@ -57,6 +65,19 @@
             </h:inputText>
             <span><h:message for="txt-preco" /></span>
           </div>
+          <ui:fragment rendered="false">
+          <div class="form-group">
+              <h:commandButton value="Teste">
+                <f:ajax execute="txt-nome" render="out" />
+              </h:commandButton>
+            <h:outputText id="out" value="#{produtoNovoBean.fragmento}" escape="false"></h:outputText>
+          </div>
+          
+          <div>
+            <button onclick="funcaoAjax(); return false;">Teste 2</button>
+            <div id="outajax"></div>
+          </div>
+          </ui:fragment>
 
           <div class="form-group">
             <h:outputLabel value="Imagem" styleClass="control-label" />
