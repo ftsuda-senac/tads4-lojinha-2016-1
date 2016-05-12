@@ -50,6 +50,19 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "TB_PRODUTO")
+@NamedQueries({
+  @NamedQuery(name = "Produto.listarPorCategoria",
+          query = "SELECT DISTINCT p FROM Produto p " // Espaço 
+          + "LEFT JOIN FETCH p.categorias "           // antes
+          + "LEFT JOIN FETCH p.imagens "              // das aspas
+          + "INNER JOIN p.categorias c "
+          + "WHERE c.id = :idCategoria"),
+  @NamedQuery(name = "Produto.obter",
+          query = "SELECT DISTINCT p FROM Produto p "
+          + "LEFT JOIN FETCH p.categorias "
+          + "LEFT JOIN FETCH p.imagens "
+          + "WHERE p.id = :idProduto")
+})
 public class Produto implements Serializable {
 
   @Id

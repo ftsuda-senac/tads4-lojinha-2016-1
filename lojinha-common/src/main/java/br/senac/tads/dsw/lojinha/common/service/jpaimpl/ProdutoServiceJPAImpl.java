@@ -48,7 +48,9 @@ public class ProdutoServiceJPAImpl implements ProdutoService {
     try {
       Query query = em.createQuery("SELECT DISTINCT p FROM Produto p "
               + "LEFT JOIN FETCH p.categorias "
-              + "LEFT JOIN FETCH p.imagens");
+              + "LEFT JOIN FETCH p.imagens")
+              .setFirstResult(offset)
+              .setMaxResults(quantidade);
       List<Produto> resultados = query.getResultList();
       return resultados;
     } finally {
@@ -58,7 +60,18 @@ public class ProdutoServiceJPAImpl implements ProdutoService {
 
   @Override
   public List<Produto> listarPorCategoria(Categoria categoria, int offset, int quantidade) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    EntityManager em = emFactory.createEntityManager();
+    try {
+    Query query = 
+            em.createNamedQuery("Produto.listarPorCategoria")
+            .setParameter("idCategoria", categoria.getId())
+            .setFirstResult(offset)
+            .setMaxResults(quantidade);
+    List<Produto> resultados = query.getResultList();
+    return resultados;
+    } finally {
+      em.close();
+    }  
   }
 
   @Override
@@ -92,7 +105,26 @@ public class ProdutoServiceJPAImpl implements ProdutoService {
 
   @Override
   public void alterar(Produto p) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    EntityManager em = emFactory.createEntityManager();
+    EntityTransaction transacao = em.getTransaction();
+    try {
+      transacao.begin();
+      for (Categoria c : p.getCategorias()) {
+        if (c.getId() != null) {
+          em.merge(c);
+        } else {
+          em.persist(c);
+        }
+      }
+      em.merge(p);
+      transacao.commit();
+    } catch (Exception e) {
+      if (transacao.isActive()) {
+        transacao.rollback();
+      }
+    } finally {
+      em.close();
+    }
   }
 
   @Override
