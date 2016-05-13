@@ -42,12 +42,17 @@ public class AutorizacaoListener implements PhaseListener {
                 "/erroNaoAutorizado.xhtml?faces-redirect=true");
         return;
       }
+      // Se chegou nesse ponto da execução, JSF prossegue com
+      // processamento da requisição.
     }
   }
   
   private static boolean verificarAcesso(UsuarioSistema usuario, 
           String pagina) {
     if (pagina.lastIndexOf("produto-form.xhtml") > -1 &&
+            usuario.autorizado("ADMIN")) {
+      return true;
+    } else if (pagina.lastIndexOf("pagina-admin.xhtml") > -1 &&
             usuario.autorizado("ADMIN")) {
       return true;
     }

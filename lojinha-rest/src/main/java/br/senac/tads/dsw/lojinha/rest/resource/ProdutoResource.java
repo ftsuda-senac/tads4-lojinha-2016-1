@@ -26,6 +26,7 @@ package br.senac.tads.dsw.lojinha.rest.resource;
 import br.senac.tads.dsw.lojinha.common.entity.Produto;
 import br.senac.tads.dsw.lojinha.common.service.ProdutoService;
 import br.senac.tads.dsw.lojinha.common.service.fakeimpl.ProdutoServiceFakeImpl;
+import br.senac.tads.dsw.lojinha.common.service.jpaimpl.ProdutoServiceJPAImpl;
 import java.util.List;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -54,7 +55,7 @@ public class ProdutoResource {
   public Response listar(
           @DefaultValue("0") @QueryParam("offset") Integer offset,
           @DefaultValue("100") @QueryParam("quantidade") Integer quantidade) {
-    ProdutoService service = new ProdutoServiceFakeImpl();
+    ProdutoService service = new ProdutoServiceJPAImpl();
     // Para retornar listas de resultados, precisa usar o GenericEntity.
     List<Produto> lista = service.listar(offset, quantidade);
     GenericEntity<List<Produto>> listaRest = new GenericEntity<List<Produto>>(lista) {
@@ -67,7 +68,7 @@ public class ProdutoResource {
   @Path("{id}")
   @Produces(MediaType.APPLICATION_JSON)
   public Response obter(@PathParam("id") Long id) {
-    ProdutoService service = new ProdutoServiceFakeImpl();
+    ProdutoService service = new ProdutoServiceJPAImpl();
     Produto produto = service.obter(id);
     return Response.ok().entity(produto).build();
     // ou Response.status(200).entity(service.obter(id)).build();

@@ -26,6 +26,7 @@ package br.senac.tads.dsw.lojinha.rest.resource;
 import br.senac.tads.dsw.lojinha.common.entity.Categoria;
 import br.senac.tads.dsw.lojinha.common.service.CategoriaService;
 import br.senac.tads.dsw.lojinha.common.service.fakeimpl.CategoriaServiceFakeImpl;
+import br.senac.tads.dsw.lojinha.common.service.jpaimpl.CategoriaServiceJPAImpl;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -55,7 +56,7 @@ public class CategoriaResource {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public Response listar() {
-    CategoriaService service = new CategoriaServiceFakeImpl();
+    CategoriaService service = new CategoriaServiceJPAImpl();
     List<Categoria> lista = service.listar();
     GenericEntity<List<Categoria>> listaRest = new GenericEntity<List<Categoria>>(lista) {
     };
