@@ -66,7 +66,9 @@
         <div class="row">
           <div class="col-xs-8">
             <h:form prependId="false">
-              <h:commandButton action="#{compraBean.adicionarProduto(produtoBean.produto.id, 1)}" styleClass="btn btn-success btn-lg btn-block" pt:role="button" value="Comprar" />
+              <h:commandButton action="#{compraBean.adicionarProduto(produtoBean.idProduto, 1)}" styleClass="btn btn-success btn-lg btn-block" pt:role="button" value="Comprar">
+                <f:param name="id" value="#{produtoBean.idProduto}" />
+              </h:commandButton>
             </h:form>
           </div>
           <div class="col-xs-4">
