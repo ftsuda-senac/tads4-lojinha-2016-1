@@ -23,9 +23,11 @@
  */
 package br.senac.tads.dsw.lojinha.web.jsf2.managedbean;
 
+import br.senac.tads.dsw.lojinha.common.entity.Categoria;
 import br.senac.tads.dsw.lojinha.common.entity.Produto;
 import br.senac.tads.dsw.lojinha.common.service.ProdutoService;
 import br.senac.tads.dsw.lojinha.common.service.fakeimpl.ProdutoServiceFakeImpl;
+import br.senac.tads.dsw.lojinha.common.service.jpaimpl.ProdutoServiceJPAImpl;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -51,8 +53,10 @@ public class ProdutoBean implements Serializable {
   }
 
   public List<Produto> getLista() {
-    ProdutoService service = new ProdutoServiceFakeImpl();
-    return service.listar(0, 100);
+    ProdutoService service = new ProdutoServiceJPAImpl();
+    Categoria cat = new Categoria(2, "teste");
+    return service.listarPorCategoria(new Categoria(2, "teste"),
+            0, 4);
   }
 
   public Produto getProduto() {

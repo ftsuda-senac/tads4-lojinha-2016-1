@@ -43,22 +43,27 @@ public class CategoriaServiceJPAImpl implements CategoriaService {
   @Override
   public List<Categoria> listar() {
     EntityManager em = emFactory.createEntityManager();
-    Query query = em.createQuery("SELECT c FROM Categoria c");
-    List<Categoria> resultados = query.getResultList();
-    em.close();
-    return resultados;
+    try {
+      Query query = em.createQuery("SELECT c FROM Categoria c");
+      List<Categoria> resultados = query.getResultList();
+      return resultados;
+    } finally {
+      em.close();
+    }
   }
 
   @Override
   public Categoria obter(int id) {
     EntityManager em = emFactory.createEntityManager();
-    Query query
-            = em.createQuery("SELECT c FROM Categoria c " // Espaço entre c e "
-                    + "WHERE c.id = :idCategoria")
-            .setParameter("idCategoria", id);
-    Categoria resultado = (Categoria) query.getSingleResult();
-    em.close();
-    return resultado;
+    try {
+      Query query = em.createQuery("SELECT c FROM Categoria c "
+              + "WHERE c.id = :idCategoria")
+              .setParameter("idCategoria", id);
+      Categoria resultado = (Categoria) query.getSingleResult();
+      return resultado;
+    } finally {
+      em.close();
+    }
   }
 
 }

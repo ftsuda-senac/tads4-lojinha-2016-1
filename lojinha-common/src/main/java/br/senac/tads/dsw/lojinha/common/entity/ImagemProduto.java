@@ -30,6 +30,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -51,6 +52,7 @@ public class ImagemProduto implements Serializable {
   @Column(name = "DS_IMAGEM")
   private String legenda;
 
+  @ManyToOne
   @JoinColumn(name = "ID_PRODUTO", nullable = false)
   private Produto produto;
 

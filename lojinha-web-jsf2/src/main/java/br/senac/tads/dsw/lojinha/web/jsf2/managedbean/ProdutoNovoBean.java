@@ -28,8 +28,8 @@ import br.senac.tads.dsw.lojinha.common.entity.ImagemProduto;
 import br.senac.tads.dsw.lojinha.common.entity.Produto;
 import br.senac.tads.dsw.lojinha.common.service.CategoriaService;
 import br.senac.tads.dsw.lojinha.common.service.ProdutoService;
-import br.senac.tads.dsw.lojinha.common.service.fakeimpl.CategoriaServiceFakeImpl;
-import br.senac.tads.dsw.lojinha.common.service.fakeimpl.ProdutoServiceFakeImpl;
+import br.senac.tads.dsw.lojinha.common.service.jpaimpl.CategoriaServiceJPAImpl;
+import br.senac.tads.dsw.lojinha.common.service.jpaimpl.ProdutoServiceJPAImpl;
 import br.senac.tads.dsw.lojinha.web.jsf2.util.Mensagem;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -66,10 +66,17 @@ public class ProdutoNovoBean implements Serializable {
 
   public ProdutoNovoBean() {
   }
+  
+  public String getFragmento() {
+    if (nome != null && nome.length() > 0) {
+       return "<h1>" + getNome() +"</h1>";
+    }
+    return "ERRO";
+  }
 
   public String salvar() {
     Produto p = new Produto();
-    CategoriaService cServ = new CategoriaServiceFakeImpl();
+    CategoriaService cServ = new CategoriaServiceJPAImpl();
 
     p.setNome(nome);
     p.setDescricao(descricao);
@@ -92,13 +99,15 @@ public class ProdutoNovoBean implements Serializable {
       p.setImagens(Arrays.asList(img));
     }
 
-    ProdutoService produtoService = new ProdutoServiceFakeImpl();
+    ProdutoService produtoService = new ProdutoServiceJPAImpl();
     produtoService.incluir(p);
 
     Flash flash = FacesContext.getCurrentInstance()
             .getExternalContext().getFlash();
-    flash.put("mensagem", new Mensagem("Produto '" + p.getNome() + "' cadastrado com sucesso", "success"));
-    return "lista.xhtml?faces-redirect=true";
+    flash.put("mensagem", new Mensagem("Produto '" 
+            + p.getNome() 
+            + "' cadastrado com sucesso", "success"));
+    return "/lista.xhtml?faces-redirect=true";
   }
 
   private String obterNomeArquivo() {
@@ -106,11 +115,13 @@ public class ProdutoNovoBean implements Serializable {
       String partHeader = imagem.getHeader("content-disposition");
       for (String content : partHeader.split(";")) {
         if (content.trim().startsWith("filename")) {
-          String nomeArquivo = content.substring(content.indexOf('=') + 1)
+          String nomeArquivo = 
+                  content.substring(content.indexOf('=') + 1)
                   .trim().replace("\"", "");
           int lastFilePartIndex = nomeArquivo.lastIndexOf("\\");
           if (lastFilePartIndex > 0) {
-            return nomeArquivo.substring(lastFilePartIndex, nomeArquivo.length());
+            return nomeArquivo.substring(lastFilePartIndex, 
+                    nomeArquivo.length());
           }
           return nomeArquivo;
         }

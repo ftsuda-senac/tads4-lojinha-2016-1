@@ -5,6 +5,7 @@
     <class>br.senac.tads.dsw.lojinha.common.entity.Categoria</class>
     <class>br.senac.tads.dsw.lojinha.common.entity.ImagemProduto</class>
     <class>br.senac.tads.dsw.lojinha.common.entity.Produto</class>
+    <shared-cache-mode>NONE</shared-cache-mode>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/cakebd"/>
       <property name="javax.persistence.jdbc.user" value="app"/>

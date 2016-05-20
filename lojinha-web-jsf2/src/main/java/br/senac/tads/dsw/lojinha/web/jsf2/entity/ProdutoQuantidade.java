@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2016 Fernando.
+ * Copyright 2016 fernando.tsuda.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,26 +24,30 @@
 package br.senac.tads.dsw.lojinha.web.jsf2.entity;
 
 import br.senac.tads.dsw.lojinha.common.entity.Produto;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
 /**
  *
- * @author Fernando
+ * @author fernando.tsuda
  */
-public class ProdutoQuantidade {
+public class ProdutoQuantidade implements Serializable {
 
   private Produto produto;
-
   private int quantidade;
-
   private Date dtInclusao;
 
   public ProdutoQuantidade(Produto produto, int quantidade) {
     this.produto = produto;
     this.quantidade = quantidade;
     this.dtInclusao = new Date();
+  }
+  
+  public BigDecimal getPreco() {
+    // Preco * quantidade
+    return produto.getPreco().multiply(new BigDecimal(quantidade));
   }
 
   public Produto getProduto() {
@@ -61,15 +65,11 @@ public class ProdutoQuantidade {
   public Date getDtInclusao() {
     return dtInclusao;
   }
-  
-  public BigDecimal getPreco() {
-    return produto.getPreco().multiply(new BigDecimal(quantidade));
-  }
 
   @Override
   public int hashCode() {
     int hash = 7;
-    hash = 97 * hash + Objects.hashCode(this.produto);
+    hash = 67 * hash + Objects.hashCode(this.produto);
     return hash;
   }
 
@@ -87,5 +87,8 @@ public class ProdutoQuantidade {
     }
     return true;
   }
+  
+  
+  
 
 }
