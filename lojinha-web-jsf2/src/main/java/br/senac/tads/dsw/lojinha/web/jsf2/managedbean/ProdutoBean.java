@@ -54,9 +54,8 @@ public class ProdutoBean implements Serializable {
 
   public List<Produto> getLista() {
     ProdutoService service = new ProdutoServiceJPAImpl();
-    Categoria cat = new Categoria(2, "teste");
-    return service.listarPorCategoria(new Categoria(2, "teste"),
-            0, 4);
+    //Categoria cat = new Categoria(2, "teste");
+    return service.listar(0, 1000);
   }
 
   public Produto getProduto() {
@@ -66,7 +65,7 @@ public class ProdutoBean implements Serializable {
   }
 
   private Produto obter(long idProduto) {
-    ProdutoService service = new ProdutoServiceFakeImpl();
+    ProdutoService service = new ProdutoServiceJPAImpl();
     return service.obter(idProduto);
   }
 

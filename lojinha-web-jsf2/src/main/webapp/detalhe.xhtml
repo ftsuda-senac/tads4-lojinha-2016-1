@@ -66,6 +66,10 @@
         <div class="row">
           <div class="col-xs-8">
             <h:form prependId="false">
+              <!-- ftsuda 20/05/2016: CORRIGIDO PARA EVITAR O NULL POINTER EXCEPTION -->
+              <!-- Alteracoes: --> 
+              <!-- 1) no parâmetro do adicionarProduto(), usar produtoBean.idProduto em vez de produtoBean.produto.id -->
+              <!-- 2) dentro do <h:commandButton></h:commandButton>, incluir o <f:param> da forma como está abaixo -->
               <h:commandButton action="#{compraBean.adicionarProduto(produtoBean.idProduto, 1)}" styleClass="btn btn-success btn-lg btn-block" pt:role="button" value="Comprar">
                 <f:param name="id" value="#{produtoBean.idProduto}" />
               </h:commandButton>

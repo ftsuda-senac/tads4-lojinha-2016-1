@@ -46,7 +46,6 @@ public class ProdutoServiceJPAImpl implements ProdutoService {
   public List<Produto> listar(int offset, int quantidade) {
     EntityManager em = emFactory.createEntityManager();
     try {
-
       Query query = em.createNamedQuery("Produto.listar")
               .setFirstResult(offset)
               .setMaxResults(quantidade);
