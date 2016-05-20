@@ -46,7 +46,7 @@ public class ProdutoServiceJPAImpl implements ProdutoService {
   public List<Produto> listar(int offset, int quantidade) {
     EntityManager em = emFactory.createEntityManager();
     try {
-      
+
       Query query = em.createNamedQuery("Produto.listar")
               .setFirstResult(offset)
               .setMaxResults(quantidade);
@@ -61,16 +61,16 @@ public class ProdutoServiceJPAImpl implements ProdutoService {
   public List<Produto> listarPorCategoria(Categoria categoria, int offset, int quantidade) {
     EntityManager em = emFactory.createEntityManager();
     try {
-    Query query = 
-            em.createNamedQuery("Produto.listarPorCategoria")
-            .setParameter("idCategoria", categoria.getId())
-            .setFirstResult(offset)
-            .setMaxResults(quantidade);
-    List<Produto> resultados = query.getResultList();
-    return resultados;
+      Query query
+              = em.createNamedQuery("Produto.listarPorCategoria")
+              .setParameter("idCategoria", categoria.getId())
+              .setFirstResult(offset)
+              .setMaxResults(quantidade);
+      List<Produto> resultados = query.getResultList();
+      return resultados;
     } finally {
       em.close();
-    }  
+    }
   }
 
   @Override
@@ -112,6 +112,20 @@ public class ProdutoServiceJPAImpl implements ProdutoService {
     EntityManager em = emFactory.createEntityManager();
     EntityTransaction transacao = em.getTransaction();
     try {
+      // Loop para fazer attach do objeto Categoria no EntityManager, para 
+      // evitar a criação de categorias com nomes duplicados.
+      transacao.begin();
+      for (Categoria c : p.getCategorias()) {
+        if (c.getId() != null) {
+          em.merge(c);
+        } else {
+          em.persist(c);
+        }
+      }
+      em.merge(p);
+      transacao.commit();
+    } catch (Exception e) {
+      transacao.rollback();
     } finally {
       em.close();
     }
@@ -134,17 +148,3 @@ public class ProdutoServiceJPAImpl implements ProdutoService {
   }
 
 }
-      // Loop para fazer attach do objeto Categoria no EntityManager, para 
-      // evitar a criação de categorias com nomes duplicados.
-      transacao.begin();
-      for (Categoria c : p.getCategorias()) {
-        if (c.getId() != null) {
-          em.merge(c);
-        } else {
-          em.persist(c);
-        }
-      }
-      em.merge(p);
-      transacao.commit();
-    } catch (Exception e) {
-      transacao.rollback();
