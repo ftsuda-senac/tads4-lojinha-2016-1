@@ -76,11 +76,14 @@ public class ProdutoServiceJPAImpl implements ProdutoService {
   @Override
   public Produto obter(long idProduto) {
     EntityManager em = emFactory.createEntityManager();
-    Query query = em.createNamedQuery("Produto.obter")
-            .setParameter("idProduto", idProduto);
-    Produto p = (Produto) query.getSingleResult();
-    em.close();
-    return p;
+    try {
+      Query query = em.createNamedQuery("Produto.obter")
+              .setParameter("idProduto", idProduto);
+      Produto p = (Produto) query.getSingleResult();
+      return p;
+    } finally {
+      em.close();
+    }
   }
 
   @Override
