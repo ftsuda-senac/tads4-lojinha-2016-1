@@ -26,6 +26,10 @@ package br.senac.tads.dsw.lojinha.common.service.jpaimpl;
 import br.senac.tads.dsw.lojinha.common.entity.Categoria;
 import br.senac.tads.dsw.lojinha.common.service.CategoriaService;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -33,14 +37,28 @@ import java.util.List;
  */
 public class CategoriaServiceJPAImpl implements CategoriaService {
 
+  private EntityManagerFactory emFactory
+          = Persistence.createEntityManagerFactory("LojinhaPU");
+
   @Override
   public List<Categoria> listar() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    EntityManager em = emFactory.createEntityManager();
+    Query query = em.createQuery("SELECT c FROM Categoria c");
+    List<Categoria> resultados = query.getResultList();
+    em.close();
+    return resultados;
   }
 
   @Override
   public Categoria obter(int id) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    EntityManager em = emFactory.createEntityManager();
+    Query query
+            = em.createQuery("SELECT c FROM Categoria c " // Espaço entre c e "
+                    + "WHERE c.id = :idCategoria")
+            .setParameter("idCategoria", id);
+    Categoria resultado = (Categoria) query.getSingleResult();
+    em.close();
+    return resultado;
   }
-  
+
 }

@@ -43,6 +43,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -50,6 +54,25 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "TB_PRODUTO")
+@NamedQueries({
+  @NamedQuery(name = "Produto.listar",
+          query = "SELECT DISTINCT p FROM Produto p "
+          + "LEFT JOIN FETCH p.categorias "
+          + "LEFT JOIN FETCH p.imagens"),
+  @NamedQuery(name = "Produto.listarPorCategoria",
+          query = "SELECT DISTINCT p FROM Produto p "
+          + "LEFT JOIN FETCH p.categorias "
+          + "LEFT JOIN FETCH p.imagens "
+          + "INNER JOIN p.categorias c "
+          + "WHERE c.id = :iCategoria"),
+  @NamedQuery(name = "Produto.obter",
+          query = "SELECT DISTINCT p FROM Produto p "
+          + "LEFT JOIN FETCH p.categorias "
+          + "LEFT JOIN FETCH p.imagens "
+          + "WHERE p.id = :idProduto")
+})
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Produto implements Serializable {
 
   @Id
@@ -69,6 +92,7 @@ public class Produto implements Serializable {
 
   @Column(name = "DT_CADASTRO", nullable = false)
   @Temporal(TemporalType.TIMESTAMP)
+  @XmlTransient
   private Date dtCadastro;
 
   @ManyToMany
@@ -79,12 +103,15 @@ public class Produto implements Serializable {
           inverseJoinColumns = {
             @JoinColumn(name = "ID_CATEGORIA")
           })
+  @XmlTransient
   private List<Categoria> categorias;
 
   @OneToMany(mappedBy = "produto")
+  @XmlTransient
   private List<ImagemProduto> imagens;
 
   @Transient
+  @XmlTransient
   private List<ItemCompra> itensCompra;
 
   public Produto() {
